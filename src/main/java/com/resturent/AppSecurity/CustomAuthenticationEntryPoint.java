@@ -26,7 +26,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                 "Unauthorized",
                 authException.getMessage(),
                 request.getRequestURI()
-            );
+        );
+
         
         ObjectMapper objectMapper=new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(apiError));
