@@ -1,5 +1,7 @@
 package com.resturent.ErrorsHandling;
 
+import org.springframework.http.HttpStatus;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,12 +13,12 @@ public class ApiError {
 
 	private String timestamp;
     private int status;
-    private String error;
+    private HttpStatus error;
     private String message;
     private String path;
     
     
-    public ApiError(int status, String error, String message, String path) {
+    public ApiError(int status, HttpStatus error, String message, String path) {
         this.timestamp = java.time.Instant.now().toString();
         this.status = status;
         this.error = error;

@@ -2,6 +2,7 @@ package com.resturent.AppSecurity;
 
 import java.io.IOException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -18,12 +19,13 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
+		 System.out.println("inside authentication method"); 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // HTTP 401
        
         ApiError apiError = new ApiError(
                 HttpServletResponse.SC_UNAUTHORIZED,
-                "Unauthorized",
+                HttpStatus.UNAUTHORIZED,
                 authException.getMessage(),
                 request.getRequestURI()
         );

@@ -12,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.resturent.Jwt_Security.CustomJwtFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +23,9 @@ public class SecurityConfig {
 
 	@Autowired
 	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+	@Autowired
+	private CustomJwtFilter customJwtFilter;
+	
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,7 +36,7 @@ public class SecurityConfig {
 				)
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.exceptionHandling(exception->exception.authenticationEntryPoint(customAuthenticationEntryPoint))
-//		.httpBasic(Customizer.withDefaults())
+		.addFilterBefore(customJwtFilter,UsernamePasswordAuthenticationFilter.class)
 		.build();
 	}
 	
