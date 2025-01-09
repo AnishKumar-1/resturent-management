@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -36,13 +36,16 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+			throws ServletException, IOException, BadCredentialsException {
 		// TODO Auto-generated method stub
+		
 		 if(request.getServletPath().equals("/api/admin/login")) {
 			 filterChain.doFilter(request, response);
 			 return;
 		 }
+		 
 		 try {
+			 
 			 String authToken=tokenFromHeader(request);
 			 if(jwtHelper.validateToken(authToken)) {
 				 String username=jwtHelper.extractUsername(authToken);
@@ -57,6 +60,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 				exceptionResolver.resolveException(request, response, null, ex);
 				return;
 			}
+		  
 		 filterChain.doFilter(request, response);
 
 	}

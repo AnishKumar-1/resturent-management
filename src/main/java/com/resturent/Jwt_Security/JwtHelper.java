@@ -7,7 +7,6 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -27,8 +26,7 @@ public class JwtHelper {
 		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 	}
 	
-	public String generate_Token(Authentication authentication) {
-		String username=authentication.getName();
+	public String generate_Token(String username) {
 		String token=Jwts.builder()
 				.header().empty().add("type", "JWT").and()
 				.subject(username).issuedAt(new Date(System.currentTimeMillis()))
