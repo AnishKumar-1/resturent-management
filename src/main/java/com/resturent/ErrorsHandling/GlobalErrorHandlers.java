@@ -33,7 +33,12 @@ public class GlobalErrorHandlers {
             statusCode = HttpStatus.BAD_REQUEST.value();
             status = HttpStatus.BAD_REQUEST;
             message = ex.getLocalizedMessage();
-        } else {
+        } 
+        else if (ex instanceof InvalidTokenException) {
+            statusCode = HttpStatus.BAD_REQUEST.value();
+            status = HttpStatus.BAD_REQUEST;
+            message = ex.getLocalizedMessage();
+        }else {
             statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
             message = ex.getLocalizedMessage();

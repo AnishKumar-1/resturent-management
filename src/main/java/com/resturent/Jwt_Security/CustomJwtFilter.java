@@ -39,7 +39,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 			throws ServletException, IOException, BadCredentialsException {
 		// TODO Auto-generated method stub
 		
-		 if(request.getServletPath().equals("/api/admin/login")) {
+		 if(request.getServletPath().equals("/api/login")) {
 			 filterChain.doFilter(request, response);
 			 return;
 		 }
@@ -66,7 +66,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 	}
 	
 	//get token from header and verify
-	private String tokenFromHeader(HttpServletRequest request) {
+	public String tokenFromHeader(HttpServletRequest request) {
 		String token=request.getHeader("Authorization");
 		if(token==null || !token.startsWith("Bearer")) {
 			throw new IllegalArgumentException("Token is empty or not found");

@@ -26,11 +26,11 @@ public class JwtHelper {
 		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 	}
 	
-	public String generate_Token(String username) {
+	public String generate_Token(String username,long expirationTime) {
 		String token=Jwts.builder()
 				.header().empty().add("type", "JWT").and()
 				.subject(username).issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis()+ 60*60*1000))
+				.expiration(new Date(System.currentTimeMillis()+ expirationTime*60*1000))
 				.signWith(getKey())
 				.compact();
 		return token;
@@ -51,7 +51,7 @@ public class JwtHelper {
 	public boolean isTokenExpired(String token) {
 	 return extractAllClaims(token,Claims::getExpiration).before(new Date());	
 	}
-
+	
 	//validate token
 	public boolean validateToken(String token) {
 		try {

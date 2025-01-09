@@ -8,7 +8,7 @@ import lombok.Setter;
 public class JwtResponse {
 
 	private String token;
-	private final String type="jwt";
+	private final String type="Bearer";
 	private String refreshToken;
 	
 	 // Constructor to initialize token and refreshToken
