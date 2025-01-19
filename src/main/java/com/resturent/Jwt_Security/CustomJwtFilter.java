@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class CustomJwtFilter extends OncePerRequestFilter {
 
+	
+	
 	@Autowired
 	private JwtHelper jwtHelper;
 	@Autowired
@@ -39,10 +42,17 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 			throws ServletException, IOException, BadCredentialsException {
 		// TODO Auto-generated method stub
 		
-		 if(request.getServletPath().equals("/api/login")) {
-			 filterChain.doFilter(request, response);
-			 return;
-		 }
+	    String path = request.getServletPath();
+	    // Allow paths like Swagger, API login, and others
+	    if (path.equals("/api/login") || 
+	        path.startsWith("/swagger-ui") || 
+	        path.startsWith("/v3/api-docs") || 
+	        path.startsWith("/swagger-resources") || 
+	        path.startsWith("/webjars")) {
+	        filterChain.doFilter(request, response);
+	        return;
+	    }
+
 		 
 		 try {
 			 

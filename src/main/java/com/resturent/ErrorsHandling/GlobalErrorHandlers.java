@@ -15,6 +15,30 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalErrorHandlers {
 
+	
+	
+	
+	// Handle CustomDataNotFound exception
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<ApiError> handleCustomDataNotFound(ItemNotFoundException ex, HttpServletRequest request) {
+        int statusCode = HttpStatus.NOT_FOUND.value(); // 404 for Not Found
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        String message = ex.getLocalizedMessage(); // Custom error message
+
+        ApiError apiError = new ApiError(
+                statusCode,
+                status,
+                message,
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(apiError, status);
+    }
+
+	
+	
+	
+	
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleExceptions(Exception ex, HttpServletRequest request) {
         int statusCode;

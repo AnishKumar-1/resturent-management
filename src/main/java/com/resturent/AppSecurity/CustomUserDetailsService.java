@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.resturent.Modules.AdminModule;
+import com.resturent.Modules.Users;
 import com.resturent.Repositories.AdminModuleRepo;
 
 @Service
@@ -22,7 +22,7 @@ public class CustomUserDetailsService  implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username){
 		// TODO Auto-generated method stub
 		
-		AdminModule adminModule = adminModuleRepo.findByUsername(username)
+		Users adminModule = adminModuleRepo.findByUsername(username)
 				.orElseThrow(()->new UsernameNotFoundException("User not found:" + username));
 		
 		return new User(adminModule.getUsername(),adminModule.getPassword(),Collections.emptyList());

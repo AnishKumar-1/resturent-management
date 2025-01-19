@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.resturent.Common_POJO.JwtResponse;
+
+import com.resturent.Dto.JwtResponse;
 import com.resturent.ErrorsHandling.InvalidTokenException;
 import com.resturent.Jwt_Security.CustomJwtFilter;
 import com.resturent.Jwt_Security.JwtHelper;
-import com.resturent.Modules.AdminModule;
+import com.resturent.Modules.Users;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api")
-public class AdminController {
+public class UsersController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -43,7 +44,7 @@ public class AdminController {
     
     
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> adminLogin(@RequestBody AdminModule adminModule) {
+    public ResponseEntity<JwtResponse> adminLogin(@RequestBody Users adminModule) {
         authenticate(adminModule.getUsername(), adminModule.getPassword());
 
         String accessToken = jwtHelper.generate_Token(adminModule.getUsername(), accessExpirationTime);

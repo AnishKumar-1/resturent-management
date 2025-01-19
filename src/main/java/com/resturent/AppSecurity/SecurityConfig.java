@@ -1,6 +1,7 @@
 package com.resturent.AppSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,8 @@ import com.resturent.Jwt_Security.CustomJwtFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+	
+
 	@Autowired
 	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 	@Autowired
@@ -31,7 +34,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf->csrf.disable())
 		.authorizeHttpRequests(request->request
-				.requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/api/login/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 				.anyRequest().authenticated()
 				)
 		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

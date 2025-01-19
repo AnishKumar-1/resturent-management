@@ -5,10 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.resturent.Modules.Users;
+import com.resturent.Modules.MenuItem;
 
 @Repository
-public interface AdminModuleRepo extends JpaRepository<Users,Long> {
+public interface MenuItemRepo extends JpaRepository<MenuItem, Long>{
 
-     Optional<Users> findByUsername(String username);
+    Optional<MenuItem> findByIdOrName(Long id, String name);
+	
 }

@@ -1,4 +1,4 @@
-package com.resturent.Common_POJO;
+package com.resturent.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
