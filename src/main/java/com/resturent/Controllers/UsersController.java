@@ -55,10 +55,6 @@ public class UsersController {
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test api";
-    }
 
     @PostMapping("/refresh")
     public ResponseEntity<String> refreshAccessToken(HttpServletRequest request) {

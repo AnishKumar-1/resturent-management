@@ -1,5 +1,4 @@
 package com.resturent.Repositories;
-
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,6 @@ import com.resturent.Modules.MenuItem;
 @Repository
 public interface MenuItemRepo extends JpaRepository<MenuItem, Long>{
 
-    Optional<MenuItem> findByIdOrName(Long id, String name);
+    Optional<MenuItem> findByName(String name);
 	
 }

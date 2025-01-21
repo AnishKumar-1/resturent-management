@@ -1,5 +1,7 @@
 package com.resturent.ErrorsHandling;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -50,6 +52,7 @@ public class GlobalErrorHandlers {
             status = HttpStatus.UNAUTHORIZED;
             message = ex.getLocalizedMessage();
         } else if (ex instanceof AccessDeniedException) {
+        	//AccessDeniedException
             statusCode = HttpStatus.FORBIDDEN.value();
             status = HttpStatus.FORBIDDEN;
             message = ex.getLocalizedMessage();
@@ -61,6 +64,11 @@ public class GlobalErrorHandlers {
         else if (ex instanceof InvalidTokenException) {
             statusCode = HttpStatus.BAD_REQUEST.value();
             status = HttpStatus.BAD_REQUEST;
+            message = ex.getLocalizedMessage();
+        }
+        else if (ex instanceof NoSuchElementException) {
+            statusCode = HttpStatus.NOT_FOUND.value();
+            status = HttpStatus.NOT_FOUND;
             message = ex.getLocalizedMessage();
         }else {
             statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
